@@ -15,6 +15,7 @@ async def create_agent(world_id: str, agent_in: AgentCreate, db: AsyncSession = 
     agent_data = agent_in.model_dump(exclude={'personality', 'goals', 'schedule'})
     
     personality = agent_in.personality.model_dump()
+    personality["personality_traits"] = personality.pop("traits")
     agent_data.update(personality)
     agent_data["world_id"] = world_id
     
